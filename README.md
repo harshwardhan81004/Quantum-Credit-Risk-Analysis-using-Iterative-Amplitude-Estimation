@@ -1,5 +1,5 @@
 # Quantum-Credit-Risk-Analysis-using-Iterative-Amplitude-Estimation
-A complete end-to-end credit risk modeling system that integrates **classical machine learning** with **quantum amplitude estimation (IAE/QAE)** to estimate **Expected Loss (EL)** for credit portfolios.  
+A complete end-to-end credit risk modeling system that integrates **classical machine learning** with **Iterative Amplitude Estimation (IAE)** to estimate **Expected Loss (EL)** for credit portfolios.  
 All code — including classical preprocessing, model training, quantum circuit construction, and IAE execution — is contained entirely in **one notebook/file**.
 
 ---
@@ -25,11 +25,36 @@ The final quantum model achieved **≈4% relative error**, validating the pipeli
 
 ---
 
+## 📊 Dataset Used — German Credit Dataset
+This project uses the **German Credit Data** from the UCI Machine Learning Repository, a widely used benchmark for credit risk classification.
+
+### **About the Dataset**
+- **1000 samples**, each representing a loan applicant.
+- Each applicant is labeled as **good** or **bad** credit risk.
+- Contains **20 attributes**, including:
+  - `CreditAmount`
+  - `Duration`
+  - `Age`
+  - `Employment`
+  - `Housing`
+  - `CheckingAccountStatus`
+  - `SavingsStatus`
+- A mix of **numerical** and **categorical** features.
+
+### **Role in this Project**
+- A machine learning model (e.g., Logistic Regression, Random Forest) is trained to predict **Probability of Default (PD)**.
+- `CreditAmount` is used as **Loss-Given-Default (LGD)** for quantum modeling.
+- The dataset is processed entirely inside the single notebook.
+
+This dataset is ideal due to its small size, diversity of features, and its widespread use in credit scoring research.
+
+---
+
 ## 📂 Single-File Pipeline Overview
 The entire workflow is implemented inside **one notebook/script** containing:
 
 1. **Data preprocessing**  
-   - Encoding, scaling, cleaning  
+   - Label encoding, scaling, handling categorical variables  
    - Train-test split  
 
 2. **Classical ML model**  
@@ -53,9 +78,9 @@ The entire workflow is implemented inside **one notebook/script** containing:
    - Returns estimated amplitude → Expected Loss
    - Produces confidence interval
 
-5. **Noise Model Integration**
-   - Uses Aer Simulator with SamplerV2.
-   - Runs IAE under Aer Simulator:
+5. **Quantum Backend**
+   - Uses **Aer Simulator**  
+   - Executed via:
      ```python
      sampler = SamplerV2.from_backend(aer_sim, default_shots=2048, seed=123)
      ```
@@ -68,19 +93,19 @@ The entire workflow is implemented inside **one notebook/script** containing:
 ---
 
 ## 🧠 Motivation
-Credit risk analytics depend on massive simulations.  
-Quantum Amplitude Estimation offers a **theoretical speedup** by reducing the number of samples required to estimate expectations.
+Traditional credit risk analytics depend on large-scale Monte Carlo simulations.  
+Quantum Amplitude Estimation provides a **quadratic speedup**, reducing the computational burden dramatically.
 
-This project explores whether:
-- PD and LGD can be encoded efficiently into quantum states  
-- Quantum methods can approximate Expected Loss  
-- Simulated noisy hardware still produces stable results  
+This project aims to explore:
+- Can PD and LGD be encoded efficiently into quantum states?  
+- Can quantum methods estimate Expected Loss accurately?  
+- Does simulated hardware produce stable and interpretable results?  
 
-This serves as a practical, publishable demonstration of **quantum-enhanced financial modeling**.
+The results show that with careful scaling, the quantum EL estimate can match the classical baseline with **~4% error**.
 
 ---
 
-## 🛠️ Installation
+## ⚙️ Installation
 
 Install all required libraries:
 
